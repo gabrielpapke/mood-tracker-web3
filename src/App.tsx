@@ -9,69 +9,67 @@ export function App() {
     <>
       <div className="border-b">
         <div className="flex h-16 items-center px-4">
-          nav
+          <h1>Web3 Mood Tracker</h1>
           <div className="ml-auto flex items-center space-x-4">
-            user connect
+            <Button>Connect wallet</Button>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <Card className="w-[350px]">
+      <div className="flex-1  space-y-4 p-8 pt-6">
+        <div className="flex justify-center items-center space-y-2 h-[70vh]">
+          <Card className="w-[350px] md:w-[550px]">
             <CardHeader>
-              <CardTitle>How's your mood today?</CardTitle>
-              <CardDescription>Pick one option</CardDescription>
+              <CardTitle>About your personal life.</CardTitle>
+              <CardDescription>How's your mood today?</CardDescription>
             </CardHeader>
             <CardContent>
               <form>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
-                    <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
+                    <RadioGroup defaultValue="card" className="grid grid-cols-2 grid-rows-2 gap-4 md:grid-cols-4 md:grid-rows-1">
                       <div>
-                        <RadioGroupItem value="card" id="card" className="peer sr-only" />
+                        <RadioGroupItem value="bad" id="bad" className="peer sr-only" />
                         <Label
-                          htmlFor="card"
+                          htmlFor="bad"
                           className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            className="mb-3 h-6 w-6"
-                          >
-                            <rect width="20" height="14" x="2" y="5" rx="2" />
-                            <path d="M2 10h20" />
-                          </svg>
-                          Card
+                          <Icons.bad className="mb-3 h-6 w-6" />
+                          Bad
+                        </Label>
+                      </div>
+                      <div>
+                        <RadioGroupItem value="not-bad" id="not-bad" className="peer sr-only" />
+                        <Label
+                          htmlFor="not-bad"
+                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                        >
+                          <Icons.meh className="mb-3 h-6 w-6" />
+                          Not bad
                         </Label>
                       </div>
                       <div>
                         <RadioGroupItem
-                          value="paypal"
-                          id="paypal"
+                          value="good"
+                          id="good"
                           className="peer sr-only"
                         />
                         <Label
-                          htmlFor="paypal"
+                          htmlFor="good"
                           className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                         >
-                          <Icons.paypal className="mb-3 h-6 w-6" />
-                          Paypal
+                          <Icons.smile className="mb-3 h-6 w-6" />
+                          Good
                         </Label>
                       </div>
                       <div>
-                        <RadioGroupItem value="apple" id="apple" className="peer sr-only" />
+                        <RadioGroupItem value="happy" id="happy" className="peer sr-only" />
                         <Label
-                          htmlFor="apple"
+                          htmlFor="happy"
                           className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                         >
-                          <Icons.apple className="mb-3 h-6 w-6" />
-                          Apple
+                          <Icons.laugh className="mb-3 h-6 w-6" />
+                          Happy
                         </Label>
                       </div>
                     </RadioGroup>
@@ -80,8 +78,8 @@ export function App() {
                 </div>
               </form>
             </CardContent>
-            <CardFooter className="flex">
-              <Button className="w-full">Submit</Button>
+            <CardFooter className="flex justify-end">
+              <Button className="">Next</Button>
             </CardFooter>
           </Card>
         </div>
