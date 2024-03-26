@@ -10,11 +10,14 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group";
 import * as zod from 'zod';
 import { MoodOption } from "../MoodOption";
-import { MoodCardProps } from "../..";
+import { MoodCardProps, MoodEnumKey } from "../..";
+import { cn } from '@/lib/utils';
 
 interface MoodProps {
   card: MoodCardProps
-  onSubmitMood: (mood: string) => void,
+  onSubmitMood: (mood: MoodEnumKey) => void,
+  onBack: () => void
+  step: number
 }
 
 const MOOD_ENUM = ["bad", "not-bad", "good", "happy"] as const
@@ -25,15 +28,20 @@ const FormSchema = zod.object({
   }),
 })
 
-export function MoodCard({ card: { title, description, icon, color }, onSubmitMood }: MoodProps) {
+export function MoodCard({ card: { title, description, icon, color, mood }, onSubmitMood, step, onBack }: MoodProps) {
   const form = useForm<zod.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      mood: mood
+    }
   })
 
 
   function onSubmit(data: zod.infer<typeof FormSchema>) {
     onSubmitMood(data.mood)
   }
+
+  const isFirstStep = step === 0;
 
   const Icon = () => icon({ color })
   return (
@@ -56,7 +64,7 @@ export function MoodCard({ card: { title, description, icon, color }, onSubmitMo
                   control={form.control}
                   name="mood"
                   render={({ field }) => (
-                    <RadioGroup onValueChange={field.onChange} defaultValue="" className="grid grid-cols-2 grid-rows-2 gap-4 md:grid-cols-4 md:grid-rows-1">
+                    <RadioGroup onValueChange={field.onChange} defaultValue={mood} className="grid grid-cols-2 grid-rows-2 gap-4 md:grid-cols-4 md:grid-rows-1">
                       <MoodOption
                         value="bad"
                         color="red"
@@ -90,7 +98,13 @@ export function MoodCard({ card: { title, description, icon, color }, onSubmitMo
               {form.formState.errors?.mood ? <FormMessage>{form.formState.errors.mood?.message}</FormMessage> : <p className="text-sm font-medium text-gray-400">Please, pick an option.</p>}
             </div>
           </CardContent>
-          <CardFooter className="flex justify-end">
+
+          <CardFooter className={cn(`flex`, {
+            'justify-end': isFirstStep,
+            'justify-between': !isFirstStep
+          })}>
+            {!isFirstStep && <Button variant="outline" onClick={onBack}>Back</Button>}
+
             <Button type="submit">Next</Button>
           </CardFooter>
         </Card>

@@ -2,10 +2,18 @@ import { ReactElement, useState } from "react";
 import { MoodCard } from "./components/MoodCard";
 import { BriefcaseBusiness, HeartPulse, LucideProps, PersonStanding } from "lucide-react";
 
+export const MoodEnum = {
+  "bad": "bad",
+  "not-bad": "not-bad",
+  "good": "good",
+  "happy": "happy"
+} as const
+
+export type MoodEnumKey = keyof typeof MoodEnum;
+
 export interface MoodCardProps {
-  show: boolean
-  type: string
-  mood: string
+  type: 'personal' | 'professional' | 'health'
+  mood?: MoodEnumKey
   title: string
   description: string,
   color: string
@@ -13,29 +21,24 @@ export interface MoodCardProps {
 }
 
 export function Home() {
-  const [cards,] = useState<MoodCardProps[]>([
+  const [currentStep, setCurrentStep] = useState(0);
+  const [cards, setCards] = useState<MoodCardProps[]>([
     {
-      show: false,
       type: 'personal',
-      mood: '',
       title: 'About your personal life.',
       description: 'How\'s your mood today?',
       color: '#fff',
       icon: (props) => <PersonStanding {...props} />
     },
     {
-      show: false,
       type: 'professional',
-      mood: '',
       title: 'About your professional life.',
       description: 'How\'s your mood today?',
       color: '#fff',
       icon: (props) => <BriefcaseBusiness {...props} />
     },
     {
-      show: true,
       type: 'health',
-      mood: '',
       title: 'About your health.',
       description: 'How\'s your mood today?',
       color: '#fff',
@@ -44,14 +47,40 @@ export function Home() {
   ])
 
 
-  function handleSubmitMood({ type }: MoodCardProps, mood: string) {
-    console.log(type, mood)
+  function handleSubmitMood({ type }: MoodCardProps, mood: MoodEnumKey) {
+    setCards(state =>
+      state.map(item => {
+        if (item.type === type) {
+          return { ...item, mood }
+        }
+
+        return item
+      })
+    )
+
+    if (currentStep === cards.length - 1)
+      return alert('send')
+
+
+    setCurrentStep(step => step + 1);
+  }
+
+  function handleBack() {
+    setCurrentStep(step => step - 1);
   }
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex justify-center items-center space-y-2 h-[70vh]">
-        {cards.map(card => card.show && <MoodCard key={card.type} card={card} onSubmitMood={(mood) => handleSubmitMood(card, mood)} />)}
+        {cards.map((card, index) =>
+          (currentStep === index)
+          && <MoodCard
+            key={card.type}
+            card={card}
+            step={currentStep}
+            onSubmitMood={(mood) => handleSubmitMood(card, mood)}
+            onBack={handleBack}
+          />)}
       </div>
 
       {/* <pre>{JSON.stringify(cards, undefined, 2)}</pre> */}
