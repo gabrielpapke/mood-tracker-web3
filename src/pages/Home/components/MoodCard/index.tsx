@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+import { LucideProps } from "lucide-react";
 import { Label } from "@radix-ui/react-label";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +19,8 @@ interface MoodCardProps {
     title: string
     description: string
     type: string
+    icon: (props: LucideProps) => ReactElement
+    color: string
   }
   onSubmitMood: (mood: string) => void,
 }
@@ -30,7 +34,7 @@ const FormSchema = zod.object({
 })
 
 
-export function MoodCard({ card: { title, description }, onSubmitMood }: MoodCardProps) {
+export function MoodCard({ card: { title, description, icon, color }, onSubmitMood }: MoodCardProps) {
   const form = useForm<zod.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -41,11 +45,16 @@ export function MoodCard({ card: { title, description }, onSubmitMood }: MoodCar
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="w-[350px] md:w-[550px]">
-          <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
+          <CardHeader className="flex-row gap-4 items-center">
+            <span className={`h-10 w-10 rounded-full bg-black flex items-center justify-center`}>
+              {icon({ color })}
+            </span>
+            <div>
+              <CardTitle>{title}</CardTitle>
+              <CardDescription>{description}</CardDescription>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="grid w-full items-center gap-4">

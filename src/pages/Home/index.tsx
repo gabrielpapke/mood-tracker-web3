@@ -1,36 +1,45 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { MoodCard } from "./components/MoodCard";
+import { BriefcaseBusiness, HeartPulse, LucideProps, PersonStanding } from "lucide-react";
 
 interface MoodCardProps {
   show: boolean
   type: string
   mood: string
   title: string
-  description: string
+  description: string,
+  color?: string
+  icon?: (props: LucideProps) => ReactElement
 }
 
 export function Home() {
   const [cards,] = useState<MoodCardProps[]>([
     {
-      show: true,
+      show: false,
       type: 'personal',
       mood: '',
       title: 'About your personal life.',
-      description: 'How\'s your mood today?'
+      description: 'How\'s your mood today?',
+      color: '#fff',
+      icon: (props) => <PersonStanding {...props} />
     },
     {
       show: false,
       type: 'professional',
       mood: '',
       title: 'About your professional life.',
-      description: 'How\'s your mood today?'
+      description: 'How\'s your mood today?',
+      color: '#fff',
+      icon: (props) => <BriefcaseBusiness {...props} />
     },
     {
-      show: false,
+      show: true,
       type: 'health',
       mood: '',
       title: 'About your health.',
-      description: 'How\'s your mood today?'
+      description: 'How\'s your mood today?',
+      color: '#fff',
+      icon: (props) => <HeartPulse {...props} />
     }
   ])
 
