@@ -1,6 +1,3 @@
-import { ReactElement } from "react";
-import { LucideProps } from "lucide-react";
-import { Label } from "@radix-ui/react-label";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,18 +7,13 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Icons } from "@/components/icons";
+import { RadioGroup } from "@/components/ui/radio-group";
 import * as zod from 'zod';
+import { MoodOption } from "../MoodOption";
+import { MoodCardProps } from "../..";
 
-interface MoodCardProps {
-  card: {
-    title: string
-    description: string
-    type: string
-    icon: (props: LucideProps) => ReactElement
-    color: string
-  }
+interface MoodProps {
+  card: MoodCardProps
   onSubmitMood: (mood: string) => void,
 }
 
@@ -33,23 +25,24 @@ const FormSchema = zod.object({
   }),
 })
 
-
-export function MoodCard({ card: { title, description, icon, color }, onSubmitMood }: MoodCardProps) {
+export function MoodCard({ card: { title, description, icon, color }, onSubmitMood }: MoodProps) {
   const form = useForm<zod.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
+
 
   function onSubmit(data: zod.infer<typeof FormSchema>) {
     onSubmitMood(data.mood)
   }
 
+  const Icon = () => icon({ color })
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="w-[350px] md:w-[550px]">
           <CardHeader className="flex-row gap-4 items-center">
             <span className={`h-10 w-10 rounded-full bg-black flex items-center justify-center`}>
-              {icon({ color })}
+              <Icon />
             </span>
             <div>
               <CardTitle>{title}</CardTitle>
@@ -64,76 +57,33 @@ export function MoodCard({ card: { title, description, icon, color }, onSubmitMo
                   name="mood"
                   render={({ field }) => (
                     <RadioGroup onValueChange={field.onChange} defaultValue="" className="grid grid-cols-2 grid-rows-2 gap-4 md:grid-cols-4 md:grid-rows-1">
-                      <div>
-                        <RadioGroupItem className="peer sr-only" id="bad" value="bad" />
-                        <Label
-                          htmlFor="bad"
-                          className="flex
-                            flex-col
-                            items-center
-                            justify-between
-                            rounded-md
-                            border-2
-                            border-muted
-                            bg-popover p-4
-                            hover:text-accent-foreground
-                            hover:bg-red-100
-                            hover:border-red-200
-                            peer-data-[state=checked]:border-red-400
-                            peer-data-[state=checked]:bg-red-400
-                            peer-data-[state=checked]:text-white"
-                        >
-                          <Icons.bad className="mb-3 h-6 w-6" />
-                          bad
-                        </Label>
-                      </div>
-                      <div>
-                        <RadioGroupItem value="not-bad" id="not-bad" className="peer sr-only" />
-                        <Label
-                          htmlFor="not-bad"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground
-                            hover:bg-yellow-100
-                            hover:border-yellow-200  
-                            peer-data-[state=checked]:border-yellow-400
-                            peer-data-[state=checked]:bg-yellow-400"
-                        >
-                          <Icons.meh className="mb-3 h-6 w-6" />
-                          not bad
-                        </Label>
-                      </div>
-                      <div>
-                        <RadioGroupItem
-                          value="good"
-                          id="good"
-                          className="peer sr-only"
-                        />
-                        <Label
-                          htmlFor="good"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4
-                          hover:bg-lime-100
-                          hover:border-lime-200
-                          peer-data-[state=checked]:border-lime-400
-                          peer-data-[state=checked]:bg-lime-400"
-                        >
-                          <Icons.smile className="mb-3 h-6 w-6" />
-                          good
-                        </Label>
-                      </div>
-                      <div>
-                        <RadioGroupItem value="happy" id="happy" className="peer sr-only" />
-                        <Label
-                          htmlFor="happy"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4
-        
-                          hover:bg-emerald-100
-                          hover:border-emerald-200
-                          peer-data-[state=checked]:border-emerald-400
-                          peer-data-[state=checked]:bg-emerald-400"
-                        >
-                          <Icons.laugh className="mb-3 h-6 w-6" />
-                          happy
-                        </Label>
-                      </div>
+                      <MoodOption
+                        value="bad"
+                        color="red"
+                        description="bad"
+                        svgIcon="bad"
+                      />
+
+                      <MoodOption
+                        value="not-bad"
+                        color="yellow"
+                        description="not bad"
+                        svgIcon="meh"
+                      />
+
+                      <MoodOption
+                        value="good"
+                        color="lime"
+                        description="good"
+                        svgIcon="smile"
+                      />
+
+                      <MoodOption
+                        value="happy"
+                        color="emerald"
+                        description="happy"
+                        svgIcon="laugh"
+                      />
                     </RadioGroup>
                   )} />
               </div>

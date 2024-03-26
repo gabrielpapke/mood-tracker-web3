@@ -2,14 +2,14 @@ import { ReactElement, useState } from "react";
 import { MoodCard } from "./components/MoodCard";
 import { BriefcaseBusiness, HeartPulse, LucideProps, PersonStanding } from "lucide-react";
 
-interface MoodCardProps {
+export interface MoodCardProps {
   show: boolean
   type: string
   mood: string
   title: string
   description: string,
-  color?: string
-  icon?: (props: LucideProps) => ReactElement
+  color: string
+  icon: (props: LucideProps) => ReactElement
 }
 
 export function Home() {
