@@ -12,6 +12,7 @@ import * as zod from 'zod';
 import { MoodOption } from "../MoodOption";
 import { MoodCardProps, MoodEnumKey } from "../..";
 import { cn } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
 
 interface MoodProps {
   card: MoodCardProps
@@ -105,7 +106,11 @@ export function MoodCard({ card: { title, description, icon, color, mood }, onSu
           })}>
             {!isFirstStep && <Button variant="outline" onClick={onBack}>Back</Button>}
 
-            <Button type="submit">Next</Button>
+            <Button type="submit">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+
+              Next
+            </Button>
           </CardFooter>
         </Card>
       </form>
