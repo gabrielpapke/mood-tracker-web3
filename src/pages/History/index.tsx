@@ -39,24 +39,28 @@ export function History() {
   };
 
   const [date, setDate] = useState<DateRange | undefined>(defaultSelected)
+  const [month, setMonth] = useState<Date>(new Date());
 
   function setToday() {
+    setMonth(new Date());
     setDate(defaultSelected)
   }
 
-  function setWeek() {
+  function setPastWeek() {
     const today = endOfDay(new Date())
     const to = today
     const from = startOfDay(subDays(today, 7))
 
+    setMonth(today);
     setDate({ from, to })
   }
 
-  function setMonth() {
+  function setPastThirtyDays() {
     const today = endOfDay(new Date())
     const to = today
     const from = startOfDay(subDays(today, 30))
 
+    setMonth(today);
     setDate({ from, to })
   }
 
@@ -71,6 +75,8 @@ export function History() {
               mode="range"
               defaultMonth={defaultSelected.from}
               selected={date}
+              month={month}
+              onMonthChange={setMonth}
               className="rounded-md border"
               onSelect={setDate}
               modifiers={{ booked: bookedDays }}
@@ -80,8 +86,8 @@ export function History() {
             />
             <div className="flex justify-between gap-2">
               <Button className="text-xs" onClick={setToday}>Today</Button>
-              <Button className="text-xs" onClick={setWeek}>Past 7 days</Button>
-              <Button className="text-xs" onClick={setMonth}>Past 30 days</Button>
+              <Button className="text-xs" onClick={setPastWeek}>Past 7 days</Button>
+              <Button className="text-xs" onClick={setPastThirtyDays}>Past 30 days</Button>
             </div>
           </div>
           <div>
