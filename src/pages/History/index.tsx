@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Icons } from "@/components/icons";
+import { endOfDay, startOfDay, subDays } from "date-fns";
 
 const bookedDays = [new Date()];
 
@@ -33,12 +34,31 @@ const css = `
 
 export function History() {
   const defaultSelected: DateRange = {
-    from: new Date(),
-    to: new Date(),
+    from: startOfDay(new Date()),
+    to: endOfDay(new Date()),
   };
 
-
   const [date, setDate] = useState<DateRange | undefined>(defaultSelected)
+
+  function setToday() {
+    setDate(defaultSelected)
+  }
+
+  function setWeek() {
+    const today = endOfDay(new Date())
+    const to = today
+    const from = startOfDay(subDays(today, 7))
+
+    setDate({ from, to })
+  }
+
+  function setMonth() {
+    const today = endOfDay(new Date())
+    const to = today
+    const from = startOfDay(subDays(today, 30))
+
+    setDate({ from, to })
+  }
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -59,9 +79,9 @@ export function History() {
               }}
             />
             <div className="flex justify-between gap-2">
-              <Button className="text-xs">Today</Button>
-              <Button className="text-xs">This week</Button>
-              <Button className="text-xs">This month</Button>
+              <Button className="text-xs" onClick={setToday}>Today</Button>
+              <Button className="text-xs" onClick={setWeek}>Past 7 days</Button>
+              <Button className="text-xs" onClick={setMonth}>Past 30 days</Button>
             </div>
           </div>
           <div>
