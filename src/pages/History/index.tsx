@@ -45,6 +45,12 @@ export function History() {
     getDetailsFromDates(date)
   }, [date])
 
+  const Loading = () => (
+    <div className="h-[200px] flex items-center justify-center flex-col">
+      <Loader2 className="mb-2 h-8 w-8 animate-spin" />
+      <span>Loading details...</span>
+    </div>)
+
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex justify-center items-center space-y-2 h-[70vh]">
@@ -76,10 +82,7 @@ export function History() {
             <div className="flex flex-col gap-4 w-[280px]">
               <h2 className="text-2xl font-bold">Details</h2>
               {loadingDetails
-                ? <div className="h-[200px] flex items-center justify-center flex-col">
-                  <Loader2 className="mb-2 h-8 w-8 animate-spin" />
-                  <span>Loading details...</span>
-                </div>
+                ? <Loading />
                 : <ScrollArea className="h-[300px]">
                   <ul>
                     {details.map(item => <ItemDetail key={item} />)}
