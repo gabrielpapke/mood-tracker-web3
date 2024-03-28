@@ -7,6 +7,8 @@ import { Icons } from "@/components/icons";
 import { endOfDay, startOfDay } from "date-fns";
 import { useDateHistory } from "@/hooks/history-use-date";
 import { cssCalendar } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const bookedDays = [new Date()];
 
@@ -16,6 +18,7 @@ export function History() {
     to: endOfDay(new Date()),
   };
 
+  const [loadingDetails, setLoadingDetails] = useState(true);
   const {
     date,
     setDate,
@@ -25,6 +28,22 @@ export function History() {
     setPastWeek,
     setPastThirtyDays
   } = useDateHistory(defaultSelected)
+
+  async function getDetailsFromDates(date: DateRange | undefined) {
+    console.log('getDatails from dates:', date)
+    setLoadingDetails(true)
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(date);
+        setLoadingDetails(false)
+      }, 2000)
+    })
+  }
+
+  useEffect(() => {
+    getDetailsFromDates(date)
+  }, [date])
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -38,6 +57,7 @@ export function History() {
               defaultMonth={defaultSelected.from}
               selected={date}
               month={month}
+              max={60}
               onMonthChange={setMonth}
               className="rounded-md border"
               onSelect={setDate}
@@ -55,20 +75,26 @@ export function History() {
           <div>
             <div className="flex flex-col gap-4 w-[280px]">
               <h2 className="text-2xl font-bold">Details</h2>
-              <ScrollArea className="h-[300px]">
-                <ul>
-                  <li>
-                    <h3 className="text-md font-semibold">27/03/2024</h3>
-                    <ul>
-                      <li className="flex items-center gap-3">Personal: <Icons.smile className="h-4 w-4 bg-lime-400 rounded-full" /></li>
-                      <li className="flex items-center gap-3">Professional: <Icons.meh className="h-4 w-4 bg-yellow-400 rounded-full" /></li>
-                      <li className="flex items-center gap-3">Health: <Icons.laugh className="h-4 w-4 bg-emerald-400 rounded-full" /></li>
-                    </ul>
+              {loadingDetails
+                ? <div className="h-[200px] flex items-center justify-center flex-col">
+                  <Loader2 className="mb-2 h-8 w-8 animate-spin" />
+                  <span>Loading details...</span>
+                </div>
+                : <ScrollArea className="h-[300px]">
+                  <ul>
+                    <li>
+                      <h3 className="text-md font-semibold">27/03/2024</h3>
+                      <ul>
+                        <li className="flex items-center gap-3">Personal: <Icons.smile className="h-4 w-4 bg-lime-400 rounded-full" /></li>
+                        <li className="flex items-center gap-3">Professional: <Icons.meh className="h-4 w-4 bg-yellow-400 rounded-full" /></li>
+                        <li className="flex items-center gap-3">Health: <Icons.laugh className="h-4 w-4 bg-emerald-400 rounded-full" /></li>
+                      </ul>
 
-                    <Separator className="my-3" />
-                  </li>
-                </ul>
-              </ScrollArea>
+                      <Separator className="my-3" />
+                    </li>
+                  </ul>
+                </ScrollArea>
+              }
             </div>
           </div>
         </div>
