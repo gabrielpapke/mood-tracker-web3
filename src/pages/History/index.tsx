@@ -5,7 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Icons } from "@/components/icons";
 import { endOfDay, startOfDay } from "date-fns";
-import { css, useDateHistory } from "./utils";
+import { useDateHistory } from "@/hooks/history-use-date";
+import { cssCalendar } from "@/lib/utils";
 
 const bookedDays = [new Date()];
 
@@ -30,7 +31,7 @@ export function History() {
       <div className="flex justify-center items-center space-y-2 h-[70vh]">
         <div className="flex gap-4">
           <div className="flex flex-col gap-4">
-            <style>{css}</style>
+            <style>{cssCalendar}</style>
             <Calendar
               id="calendar"
               mode="range"

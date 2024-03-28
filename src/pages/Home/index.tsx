@@ -1,6 +1,7 @@
 import { ReactElement, useState } from "react";
 import { MoodCard } from "./components/MoodCard";
 import { BriefcaseBusiness, HeartPulse, LucideProps, PersonStanding } from "lucide-react";
+import SubmittedCard from "./components/SubmittedCard";
 
 export const MoodEnum = {
   "bad": "bad",
@@ -69,18 +70,21 @@ export function Home() {
     setCurrentStep(step => step - 1);
   }
 
+  const isSubmitted = true;
+
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex justify-center items-center space-y-2 h-[70vh]">
-        {cards.map((card, index) =>
-          (currentStep === index)
-          && <MoodCard
-            key={card.type}
-            card={card}
-            step={currentStep}
-            onSubmitMood={(mood) => handleSubmitMood(card, mood)}
-            onBack={handleBack}
-          />)}
+        {isSubmitted ? <SubmittedCard /> :
+          cards.map((card, index) =>
+            (currentStep === index)
+            && <MoodCard
+              key={card.type}
+              card={card}
+              step={currentStep}
+              onSubmitMood={(mood) => handleSubmitMood(card, mood)}
+              onBack={handleBack}
+            />)}
       </div>
 
       {/* <pre>{JSON.stringify(cards, undefined, 2)}</pre> */}
