@@ -1,14 +1,13 @@
-import { Calendar } from "@/components/ui/calendar"
+import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker"
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Icons } from "@/components/icons";
 import { endOfDay, startOfDay } from "date-fns";
+import { Calendar } from "@/components/ui/calendar"
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { useDateHistory } from "@/hooks/history-use-date";
 import { cssCalendar } from "@/lib/utils";
-import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
+import { ItemDetail } from "./components/ItemDetail";
 
 const bookedDays = [new Date()];
 
@@ -19,6 +18,7 @@ export function History() {
   };
 
   const [loadingDetails, setLoadingDetails] = useState(true);
+  const [details,] = useState([1, 2, 3])
   const {
     date,
     setDate,
@@ -82,16 +82,7 @@ export function History() {
                 </div>
                 : <ScrollArea className="h-[300px]">
                   <ul>
-                    <li>
-                      <h3 className="text-md font-semibold">27/03/2024</h3>
-                      <ul>
-                        <li className="flex items-center gap-3">Personal: <Icons.smile className="h-4 w-4 bg-lime-400 rounded-full" /></li>
-                        <li className="flex items-center gap-3">Professional: <Icons.meh className="h-4 w-4 bg-yellow-400 rounded-full" /></li>
-                        <li className="flex items-center gap-3">Health: <Icons.laugh className="h-4 w-4 bg-emerald-400 rounded-full" /></li>
-                      </ul>
-
-                      <Separator className="my-3" />
-                    </li>
+                    {details.map(item => <ItemDetail key={item} />)}
                   </ul>
                 </ScrollArea>
               }
