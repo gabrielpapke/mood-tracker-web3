@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { MoodCard } from "./components/MoodCard";
 import SubmittedCard from "./components/SubmittedCard";
-import { MoodCardProps, MoodEnumKey, useHomeStore } from "./home.store";
+import { MoodCardProps, MoodEnumKey, MoodType, useHomeStore } from "./home.store";
 
 export function Home() {
-  const [currentStep, setCurrentStep] = useState(0);
   const defaultCards = useHomeStore(state => state.defaultCards)
+  const step = useHomeStore(state => state.step)
+  const setStep = useHomeStore(state => state.setStep)
+
   const [cards, setCards] = useState<MoodCardProps[]>(defaultCards)
 
-  function handleSubmitMood({ type }: MoodCardProps, mood: MoodEnumKey) {
+  function updateCard(type: MoodType, mood: MoodEnumKey) {
     setCards(state =>
       state.map(item => {
         if (item.type === type) {
@@ -18,16 +20,24 @@ export function Home() {
         return item
       })
     )
+  }
 
-    if (currentStep === cards.length - 1)
-      return alert('send')
+  function send() {
+    alert('send')
+  }
+
+  function handleSubmitMood({ type }: MoodCardProps, mood: MoodEnumKey) {
+    updateCard(type, mood);
+
+    if (step === cards.length - 1)
+      return send();
 
 
-    setCurrentStep(step => step + 1);
+    setStep(step + 1);
   }
 
   function handleBack() {
-    setCurrentStep(step => step - 1);
+    setStep(step - 1);
   }
 
   const isSubmitted = false;
@@ -37,11 +47,10 @@ export function Home() {
       <div className="flex justify-center items-center space-y-2 h-[70vh]">
         {isSubmitted ? <SubmittedCard /> :
           cards.map((card, index) =>
-            (currentStep === index)
+            (step === index)
             && <MoodCard
               key={card.type}
               card={card}
-              step={currentStep}
               onSubmitMood={(mood) => handleSubmitMood(card, mood)}
               onBack={handleBack}
             />)}

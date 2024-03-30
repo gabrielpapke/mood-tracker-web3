@@ -10,15 +10,14 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group";
 import * as zod from 'zod';
 import { MoodOption } from "../MoodOption";
-import { MoodCardProps, MoodEnumKey } from "../..";
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
+import { MoodCardProps, MoodEnumKey, useHomeStore } from '../../home.store';
 
 interface MoodProps {
   card: MoodCardProps
   onSubmitMood: (mood: MoodEnumKey) => void,
   onBack: () => void
-  step: number
 }
 
 const MOOD_ENUM = ["bad", "not-bad", "good", "happy"] as const
@@ -29,7 +28,9 @@ const FormSchema = zod.object({
   }),
 })
 
-export function MoodCard({ card: { title, description, icon, color, mood }, onSubmitMood, step, onBack }: MoodProps) {
+export function MoodCard({ card: { title, description, icon, color, mood }, onSubmitMood, onBack }: MoodProps) {
+  const step = useHomeStore(state => state.step)
+
   const form = useForm<zod.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {

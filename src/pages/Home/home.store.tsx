@@ -11,7 +11,7 @@ export const MoodEnum = {
 
 export type MoodEnumKey = keyof typeof MoodEnum;
 
-enum MoodType {
+export enum MoodType {
   PERSONAL = "personal",
   PROFESSIONAL = "professional",
   HEALTH = "health",
@@ -52,10 +52,14 @@ const defaultCards = [
 
 interface HomeState {
   defaultCards: MoodCardProps[]
+  step: number
+  setStep: (newStep: number) => void
 }
 
 const useHomeStore = create<HomeState>()((set) => ({
-  defaultCards: defaultCards
+  defaultCards: defaultCards,
+  step: 0,
+  setStep: (newStep: number) => set(() => ({ step: newStep }))
 }))
 
 export { useHomeStore }
