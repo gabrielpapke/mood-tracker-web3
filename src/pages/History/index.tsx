@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker"
 import { endOfDay, startOfDay } from "date-fns";
-import { Calendar } from "@/components/ui/calendar"
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { useDateHistory } from "@/hooks/history-use-date";
-import { cssCalendar } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
-import { ItemDetail } from "./components/ItemDetail";
+import { Calendar } from "./components/Calendar";
+import { Details } from "./components/Details";
 
 const bookedDays = [new Date()];
 
@@ -45,61 +41,13 @@ export function History() {
     getDetailsFromDates(date)
   }, [date])
 
-  const Loading = () => (
-    <div className="h-[200px] flex items-center justify-center flex-col">
-      <Loader2 className="mb-2 h-8 w-8 animate-spin" />
-      <span>Loading details...</span>
-    </div>)
-
-  const Details = () => {
-    if (details.length)
-      return (
-        <ul>
-          {details.map(item => <ItemDetail key={item} />)}
-        </ul>)
-
-    return <p>No mood between this dates.</p>
-  }
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex justify-center items-center space-y-2 h-[70vh]">
         <div className="flex gap-4">
-          <div className="flex flex-col gap-4">
-            <style>{cssCalendar}</style>
-            <Calendar
-              id="calendar"
-              mode="range"
-              defaultMonth={defaultSelected.from}
-              selected={date}
-              month={month}
-              max={60}
-              onMonthChange={setMonth}
-              className="rounded-md border"
-              onSelect={setDate}
-              modifiers={{ booked: bookedDays }}
-              modifiersClassNames={{
-                booked: 'has-mood'
-              }}
-            />
-            <div className="flex justify-between gap-2">
-              <Button className="text-xs" onClick={setToday}>Today</Button>
-              <Button className="text-xs" onClick={setPastWeek}>Past 7 days</Button>
-              <Button className="text-xs" onClick={setPastThirtyDays}>Past 30 days</Button>
-            </div>
-          </div>
-          <div>
-            <div className="flex flex-col gap-4 w-[280px]">
-              <h2 className="text-2xl font-bold">Details</h2>
-              {loadingDetails
-                ? <Loading />
-                : <ScrollArea className="h-[300px]">
-                  <Details />
-                </ScrollArea>
-              }
-            </div>
-          </div>
+          <Calendar />
+          <Details />
         </div>
-
       </div>
     </div>
   )
