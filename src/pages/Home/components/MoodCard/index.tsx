@@ -30,6 +30,7 @@ const FormSchema = zod.object({
 
 export function MoodCard({ card: { title, description, icon, color, mood }, onSubmitMood, onBack }: MoodProps) {
   const step = useHomeStore(state => state.step)
+  const isSaving = useHomeStore(state => state.isSaving)
 
   const form = useForm<zod.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -108,7 +109,7 @@ export function MoodCard({ card: { title, description, icon, color, mood }, onSu
             {!isFirstStep && <Button variant="outline" onClick={onBack}>Back</Button>}
 
             <Button type="submit">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 
               Next
             </Button>

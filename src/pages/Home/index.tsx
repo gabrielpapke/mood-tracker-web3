@@ -7,6 +7,9 @@ export function Home() {
   const defaultCards = useHomeStore(state => state.defaultCards)
   const step = useHomeStore(state => state.step)
   const setStep = useHomeStore(state => state.setStep)
+  const setSaving = useHomeStore(state => state.setSaving)
+  const isSubmitted = useHomeStore(state => state.isSubmitted)
+  const setSubmitted = useHomeStore(state => state.setSubmitted)
 
   const [cards, setCards] = useState<MoodCardProps[]>(defaultCards)
 
@@ -23,7 +26,15 @@ export function Home() {
   }
 
   function send() {
-    alert('send')
+    setSaving(true)
+
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true)
+        setSaving(false)
+        setSubmitted(true)
+      }, 3000)
+    })
   }
 
   function handleSubmitMood({ type }: MoodCardProps, mood: MoodEnumKey) {
@@ -39,8 +50,6 @@ export function Home() {
   function handleBack() {
     setStep(step - 1);
   }
-
-  const isSubmitted = false;
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">

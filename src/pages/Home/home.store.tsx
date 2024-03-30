@@ -53,13 +53,21 @@ const defaultCards = [
 interface HomeState {
   defaultCards: MoodCardProps[]
   step: number
+  isSaving: boolean
+  isSubmitted: boolean
   setStep: (newStep: number) => void
+  setSaving: (isSaving: boolean) => void
+  setSubmitted: (isSubmitted: boolean) => void
 }
 
 const useHomeStore = create<HomeState>()((set) => ({
   defaultCards: defaultCards,
   step: 0,
-  setStep: (newStep: number) => set(() => ({ step: newStep }))
+  isSaving: false,
+  isSubmitted: false,
+  setStep: (newStep: number) => set(() => ({ step: newStep })),
+  setSaving: (isSaving: boolean) => set(() => ({ isSaving })),
+  setSubmitted: (isSubmitted: boolean) => set(() => ({ isSubmitted })),
 }))
 
 export { useHomeStore }
