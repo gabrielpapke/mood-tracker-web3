@@ -51,6 +51,15 @@ export function History() {
       <span>Loading details...</span>
     </div>)
 
+  const Details = () => {
+    if (details.length)
+      return (
+        <ul>
+          {details.map(item => <ItemDetail key={item} />)}
+        </ul>)
+
+    return <p>No mood between this dates.</p>
+  }
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex justify-center items-center space-y-2 h-[70vh]">
@@ -84,9 +93,7 @@ export function History() {
               {loadingDetails
                 ? <Loading />
                 : <ScrollArea className="h-[300px]">
-                  <ul>
-                    {details.map(item => <ItemDetail key={item} />)}
-                  </ul>
+                  <Details />
                 </ScrollArea>
               }
             </div>
