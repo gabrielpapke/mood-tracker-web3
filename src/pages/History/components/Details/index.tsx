@@ -1,8 +1,12 @@
 import { Loader2 } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useHistoryStore } from "../../history.store"
 import { ItemDetail } from "../ItemDetail"
 
 function Details() {
+  const details = useHistoryStore((state) => state.details)
+  const loadingDetails = useHistoryStore((state) => state.loadingDetails)
+
   const Loading = () => (
     <div className="h-[200px] flex items-center justify-center flex-col">
       <Loader2 className="mb-2 h-8 w-8 animate-spin" />
@@ -13,7 +17,7 @@ function Details() {
     if (details.length)
       return (
         <ul>
-          {details.map(item => <ItemDetail key={item} />)}
+          {details.map((item: number) => <ItemDetail key={item} />)}
         </ul>)
 
     return <p>No mood between this dates.</p>

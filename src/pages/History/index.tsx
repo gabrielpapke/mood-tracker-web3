@@ -13,8 +13,7 @@ export function History() {
     to: endOfDay(new Date()),
   };
 
-  const [loadingDetails, setLoadingDetails] = useState(true);
-  const [details,] = useState([1, 2, 3])
+
   const {
     date,
     setDate,
