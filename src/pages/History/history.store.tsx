@@ -7,22 +7,24 @@ const defaultSelected: DateRange = {
   to: endOfDay(new Date()),
 };
 
-interface Detail {
-
-}
-
 interface HistoryState {
   defaultSelected: DateRange
+  selectedDates: DateRange | undefined
   details: number[]
   loadingDetails: boolean
+  bookedDays: Date[]
   setLoadingDetails: (isLoading: boolean) => void
+  setSelectedDates: (selectedDates: DateRange | undefined) => void
 }
 
 const useHistoryStore = create<HistoryState>()((set) => ({
   defaultSelected,
+  selectedDates: defaultSelected,
   details: [],
   loadingDetails: true,
+  bookedDays: [new Date()],
   setLoadingDetails: (isLoading: boolean) => set(() => ({ loadingDetails: isLoading })),
+  setSelectedDates: (selectedDates: DateRange | undefined) => set(() => ({ selectedDates })),
 }))
 
 export { useHistoryStore }

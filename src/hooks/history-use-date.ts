@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { DateRange } from "react-day-picker";
 import { endOfDay, startOfDay, subDays } from "date-fns";
+import { useHistoryStore } from "@/pages/History/history.store";
 
-const useDateHistory = (defaultDate: DateRange) => {
-  const [date, setDate] = useState<DateRange | undefined>(defaultDate)
+const useDateHistory = () => {
+
+  const defaultSelected = useHistoryStore(state => state.defaultSelected)
+  const setSelectedDates = useHistoryStore(state => state.setSelectedDates)
   const [month, setMonth] = useState<Date>(new Date());
 
   function setToday() {
     setMonth(new Date());
-    setDate(defaultDate)
+    setSelectedDates(defaultSelected)
   }
 
   function setPastWeek() {
@@ -17,7 +19,7 @@ const useDateHistory = (defaultDate: DateRange) => {
     const from = startOfDay(subDays(today, 7))
 
     setMonth(today);
-    setDate({ from, to })
+    setSelectedDates({ from, to })
   }
 
   function setPastThirtyDays() {
@@ -26,12 +28,10 @@ const useDateHistory = (defaultDate: DateRange) => {
     const from = startOfDay(subDays(today, 30))
 
     setMonth(today);
-    setDate({ from, to })
+    setSelectedDates({ from, to })
   }
 
   return {
-    date,
-    setDate,
     month,
     setMonth,
     setToday,
