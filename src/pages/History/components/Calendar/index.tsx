@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar as CalendarUI } from '@/components/ui/calendar'
 import { cssCalendar } from "@/lib/utils";
 import { useHistoryStore } from "../../history.store";
-import { useDateHistory } from "@/hooks/history-use-date";
+import { useDateHistory } from "../../history.hooks";
 
 function Calendar() {
   const bookedDays = useHistoryStore((state) => state.bookedDays)
