@@ -1,21 +1,20 @@
-import { useState } from "react";
 import { MoodCard } from "./components/MoodCard";
 import SubmittedCard from "./components/SubmittedCard";
 import { MoodCardProps, MoodEnumKey, MoodType, useHomeStore } from "./home.store";
 
 export function Home() {
-  const defaultCards = useHomeStore(state => state.defaultCards)
+  const cards = useHomeStore(state => state.cards)
+  const setCards = useHomeStore(state => state.setCards)
   const step = useHomeStore(state => state.step)
   const setStep = useHomeStore(state => state.setStep)
   const setSaving = useHomeStore(state => state.setSaving)
   const isSubmitted = useHomeStore(state => state.isSubmitted)
   const setSubmitted = useHomeStore(state => state.setSubmitted)
 
-  const [cards, setCards] = useState<MoodCardProps[]>(defaultCards)
 
   function updateCard(type: MoodType, mood: MoodEnumKey) {
-    setCards(state =>
-      state.map(item => {
+    setCards(
+      cards.map(item => {
         if (item.type === type) {
           return { ...item, mood }
         }
