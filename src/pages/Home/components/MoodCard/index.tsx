@@ -6,13 +6,14 @@ import {
   FormField,
   FormMessage,
 } from "@/components/ui/form"
+import { MoodCardProps, MoodEnumKey } from '@/interfaces/mood';
 import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group";
 import * as zod from 'zod';
 import { MoodOption } from "../MoodOption";
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
-import { MoodCardProps, MoodEnumKey, useHomeStore } from '../../home.store';
+import { useHomeStore } from '../../home.store';
 
 interface MoodProps {
   card: MoodCardProps

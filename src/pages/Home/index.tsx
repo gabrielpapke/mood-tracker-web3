@@ -1,6 +1,7 @@
+import { MoodCardProps, MoodEnumKey, MoodType } from "@/interfaces/mood";
 import { MoodCard } from "./components/MoodCard";
 import SubmittedCard from "./components/SubmittedCard";
-import { MoodCardProps, MoodEnumKey, MoodType, useHomeStore } from "./home.store";
+import { useHomeStore } from "./home.store";
 
 export function Home() {
   const cards = useHomeStore(state => state.cards)
