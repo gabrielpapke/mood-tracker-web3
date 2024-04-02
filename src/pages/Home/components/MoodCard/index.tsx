@@ -9,6 +9,7 @@ import { MoodOption } from "../MoodOption";
 import { useHome } from '../../home.hooks';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { useHomeStore } from '../../home.store';
 
 const MOOD_ENUM = ["bad", "not-bad", "good", "happy"] as const
 
@@ -19,6 +20,7 @@ const FormSchema = zod.object({
 })
 
 export function MoodCard({ title, description, icon, color, mood, type }: MoodCardProps) {
+  const isSaving = useHomeStore(state => state.isSaving)
   const { handleSubmitMood } = useHome()
 
   const form = useForm<zod.infer<typeof FormSchema>>({
@@ -50,7 +52,7 @@ export function MoodCard({ title, description, icon, color, mood, type }: MoodCa
                   control={form.control}
                   name="mood"
                   render={({ field }) => (
-                    <RadioGroup onValueChange={field.onChange} defaultValue={mood} className="grid grid-cols-2 grid-rows-2 gap-4 md:grid-cols-4 md:grid-rows-1">
+                    <RadioGroup disabled={isSaving} onValueChange={field.onChange} defaultValue={mood} className="grid grid-cols-2 grid-rows-2 gap-4 md:grid-cols-4 md:grid-rows-1">
                       <MoodOption
                         value="bad"
                         color="red"

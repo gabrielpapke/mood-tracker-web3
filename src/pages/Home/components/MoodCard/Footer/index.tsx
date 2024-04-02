@@ -16,7 +16,7 @@ function Footer() {
       'justify-end': isFirstStep,
       'justify-between': !isFirstStep
     })}>
-      {!isFirstStep && <Button variant="outline" onClick={handleBack}>Back</Button>}
+      {!isFirstStep && <Button variant="outline" disabled={isSaving} onClick={handleBack}>Back</Button>}
 
       <Button type="submit">
         {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
