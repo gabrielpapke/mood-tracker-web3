@@ -1,17 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Form, FormField, FormMessage } from "@/components/ui/form"
 import { MoodCardProps } from '@/interfaces/mood';
-import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group";
 import * as zod from 'zod';
 import { MoodOption } from "../MoodOption";
-import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
-import { useHomeStore } from '../../home.store';
 import { useHome } from '../../home.hooks';
 import { Header } from './Header';
+import { Footer } from './Footer';
 
 const MOOD_ENUM = ["bad", "not-bad", "good", "happy"] as const
 
@@ -22,9 +19,7 @@ const FormSchema = zod.object({
 })
 
 export function MoodCard({ title, description, icon, color, mood, type }: MoodCardProps) {
-  const step = useHomeStore(state => state.step)
-  const isSaving = useHomeStore(state => state.isSaving)
-  const { handleSubmitMood, handleBack } = useHome()
+  const { handleSubmitMood } = useHome()
 
   const form = useForm<zod.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -36,10 +31,6 @@ export function MoodCard({ title, description, icon, color, mood, type }: MoodCa
   function onSubmit(data: zod.infer<typeof FormSchema>) {
     handleSubmitMood(type, data.mood)
   }
-
-  const isFirstStep = step === 0;
-
-
 
   return (
     <Form {...form}>
@@ -90,22 +81,12 @@ export function MoodCard({ title, description, icon, color, mood, type }: MoodCa
                     </RadioGroup>
                   )} />
               </div>
+
               {form.formState.errors?.mood ? <FormMessage>{form.formState.errors.mood?.message}</FormMessage> : <p className="text-sm font-medium text-gray-400">Please, pick an option.</p>}
             </div>
           </CardContent>
 
-          <CardFooter className={cn(`flex`, {
-            'justify-end': isFirstStep,
-            'justify-between': !isFirstStep
-          })}>
-            {!isFirstStep && <Button variant="outline" onClick={handleBack}>Back</Button>}
-
-            <Button type="submit">
-              {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-
-              Next
-            </Button>
-          </CardFooter>
+          <Footer />
         </Card>
       </form>
     </Form>
