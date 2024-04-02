@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Form, FormField, FormMessage } from "@/components/ui/form"
 import { MoodCardProps } from '@/interfaces/mood';
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useHomeStore } from '../../home.store';
 import { useHome } from '../../home.hooks';
+import { Header } from './Header';
 
 const MOOD_ENUM = ["bad", "not-bad", "good", "happy"] as const
 
@@ -38,21 +39,19 @@ export function MoodCard({ title, description, icon, color, mood, type }: MoodCa
 
   const isFirstStep = step === 0;
 
-  const Icon = () => icon({ color })
+
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="w-[350px] md:w-[550px]">
-          <CardHeader className="flex-row gap-4 items-center">
-            <span className={`h-10 w-10 rounded-full bg-black flex items-center justify-center`}>
-              <Icon />
-            </span>
-            <div>
-              <CardTitle>{title}</CardTitle>
-              <CardDescription>{description}</CardDescription>
-            </div>
-          </CardHeader>
+          <Header
+            title={title}
+            description={description}
+            icon={icon}
+            color={color}
+          />
+
           <CardContent>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
