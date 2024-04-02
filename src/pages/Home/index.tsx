@@ -52,20 +52,25 @@ export function Home() {
   }
 
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <div className="flex justify-center items-center space-y-2 h-[70vh]">
-        {isSubmitted ? <SubmittedCard /> :
-          cards.map((card, index) =>
-            (step === index)
-            && <MoodCard
-              key={card.type}
-              card={card}
-              onSubmitMood={(mood) => handleSubmitMood(card, mood)}
-              onBack={handleBack}
-            />)}
-      </div>
-
-      {/* <pre>{JSON.stringify(cards, undefined, 2)}</pre> */}
-    </div>
+    <Container>
+      {isSubmitted ? <SubmittedCard /> :
+        cards.map((card, index) =>
+          (step === index)
+          && <MoodCard
+            key={card.type}
+            card={card}
+            onSubmitMood={(mood) => handleSubmitMood(card, mood)}
+            onBack={handleBack}
+          />)}
+    </Container>
   )
 }
+
+
+const Container = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex-1 space-y-4 p-8 pt-6">
+    <div className="flex justify-center items-center space-y-2 h-[70vh]">
+      {children}
+    </div>
+  </div>
+)

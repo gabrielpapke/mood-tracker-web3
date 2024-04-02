@@ -9,7 +9,7 @@ const defaultSelected: DateRange = {
 
 function startOfDayAndEndOfDay(range: DateRange | undefined): DateRange {
   return {
-    from: startOfDay(range!.from!),
+    from: range?.from ? startOfDay(range.from) : undefined,
     to: range?.to ? endOfDay(range.to) : undefined
   }
 }
