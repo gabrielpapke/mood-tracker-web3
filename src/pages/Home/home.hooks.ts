@@ -1,4 +1,4 @@
-import { MoodCardProps, MoodEnumKey, MoodType } from "@/interfaces/mood"
+import { MoodEnumKey, MoodType } from "@/interfaces/mood"
 import { useHomeStore } from "./home.store"
 
 const useHome = () => {
@@ -21,7 +21,7 @@ const useHome = () => {
     )
   }
 
-  function handleSubmitMood({ type }: MoodCardProps, mood: MoodEnumKey) {
+  function handleSubmitMood(type: MoodType, mood: MoodEnumKey) {
     updateCard(type, mood);
 
     if (step === cards.length - 1)

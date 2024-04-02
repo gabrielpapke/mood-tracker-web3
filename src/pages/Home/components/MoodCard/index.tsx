@@ -1,12 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Form,
-  FormField,
-  FormMessage,
-} from "@/components/ui/form"
-import { MoodCardProps, MoodEnumKey } from '@/interfaces/mood';
+import { Form, FormField, FormMessage } from "@/components/ui/form"
+import { MoodCardProps } from '@/interfaces/mood';
 import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group";
 import * as zod from 'zod';
@@ -14,12 +10,7 @@ import { MoodOption } from "../MoodOption";
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useHomeStore } from '../../home.store';
-
-interface MoodProps {
-  card: MoodCardProps
-  onSubmitMood: (mood: MoodEnumKey) => void,
-  onBack: () => void
-}
+import { useHome } from '../../home.hooks';
 
 const MOOD_ENUM = ["bad", "not-bad", "good", "happy"] as const
 
@@ -29,9 +20,10 @@ const FormSchema = zod.object({
   }),
 })
 
-export function MoodCard({ card: { title, description, icon, color, mood }, onSubmitMood, onBack }: MoodProps) {
+export function MoodCard({ title, description, icon, color, mood, type }: MoodCardProps) {
   const step = useHomeStore(state => state.step)
   const isSaving = useHomeStore(state => state.isSaving)
+  const { handleSubmitMood, handleBack } = useHome()
 
   const form = useForm<zod.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -40,14 +32,14 @@ export function MoodCard({ card: { title, description, icon, color, mood }, onSu
     }
   })
 
-
   function onSubmit(data: zod.infer<typeof FormSchema>) {
-    onSubmitMood(data.mood)
+    handleSubmitMood(type, data.mood)
   }
 
   const isFirstStep = step === 0;
 
   const Icon = () => icon({ color })
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -107,7 +99,7 @@ export function MoodCard({ card: { title, description, icon, color, mood }, onSu
             'justify-end': isFirstStep,
             'justify-between': !isFirstStep
           })}>
-            {!isFirstStep && <Button variant="outline" onClick={onBack}>Back</Button>}
+            {!isFirstStep && <Button variant="outline" onClick={handleBack}>Back</Button>}
 
             <Button type="submit">
               {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
