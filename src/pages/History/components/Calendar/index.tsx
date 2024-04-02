@@ -6,6 +6,7 @@ import { useDateHistory } from "../../history.hooks";
 
 function Calendar() {
   const bookedDays = useHistoryStore((state) => state.bookedDays)
+  const loadingDetails = useHistoryStore((state) => state.loadingDetails)
   const defaultSelected = useHistoryStore((state) => state.defaultSelected)
   const selectedDates = useHistoryStore((state) => state.selectedDates)
   const setSelectedDates = useHistoryStore((state) => state.setSelectedDates)
@@ -27,6 +28,7 @@ function Calendar() {
         defaultMonth={defaultSelected.from}
         selected={selectedDates}
         month={month}
+        disabled={loadingDetails}
         max={60}
         onMonthChange={setMonth}
         className="rounded-md border"
