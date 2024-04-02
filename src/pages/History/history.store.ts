@@ -7,6 +7,14 @@ const defaultSelected: DateRange = {
   to: endOfDay(new Date()),
 };
 
+function startOfDayAndEndOfDay(range: DateRange | undefined): DateRange {
+  return {
+    from: startOfDay(range!.from!),
+    to: range?.to ? endOfDay(range.to) : undefined
+  }
+}
+
+
 interface HistoryState {
   defaultSelected: DateRange
   selectedDates: DateRange | undefined
@@ -24,7 +32,9 @@ const useHistoryStore = create<HistoryState>()((set) => ({
   loadingDetails: true,
   bookedDays: [new Date()],
   setLoadingDetails: (isLoading: boolean) => set(() => ({ loadingDetails: isLoading })),
-  setSelectedDates: (selectedDates: DateRange | undefined) => set(() => ({ selectedDates })),
+  setSelectedDates: (range: DateRange | undefined) => set(() => ({
+    selectedDates: startOfDayAndEndOfDay(range)
+  })),
 }))
 
 export { useHistoryStore }
