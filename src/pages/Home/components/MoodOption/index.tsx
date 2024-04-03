@@ -1,22 +1,22 @@
-import { Icons } from "@/components/icons";
-import { Label } from "@/components/ui/label";
-import { RadioGroupItem } from "@/components/ui/radio-group";
-import { MoodEnumKey } from "@/interfaces/mood";
+import { Icons } from '@/components/icons'
+import { Label } from '@/components/ui/label'
+import { RadioGroupItem } from '@/components/ui/radio-group'
+import { MoodEnumKey } from '@/interfaces/mood'
 
 interface MoodOptionProps {
-  value: MoodEnumKey
-  color: string
-  description: string
+    value: MoodEnumKey
+    color: string
+    description: string
 }
 
 export function MoodOption({ value, color, description }: MoodOptionProps) {
-  const Icon = Icons[value]
-  return (
-    <div>
-      <RadioGroupItem className="peer sr-only" id={value} value={value} />
-      <Label
-        htmlFor={value}
-        className={`
+    const Icon = Icons[value]
+    return (
+        <div>
+            <RadioGroupItem className="peer sr-only" id={value} value={value} />
+            <Label
+                htmlFor={value}
+                className={`
           flex
           flex-col
           items-center
@@ -32,10 +32,10 @@ export function MoodOption({ value, color, description }: MoodOptionProps) {
           peer-data-[state=checked]:bg-${color}-400
           peer-data-[state=checked]:text-white
         `}
-      >
-        <Icon className="mb-3 h-6 w-6" />
-        {description}
-      </Label>
-    </div>
-  )
+            >
+                <Icon className="mb-3 h-6 w-6" />
+                {description}
+            </Label>
+        </div>
+    )
 }
