@@ -11,6 +11,7 @@ function Footer() {
     const { handleBack } = useHome()
 
     const isFirstStep = step === 0
+
     return (
         <CardFooter
             className={cn(`flex`, {
