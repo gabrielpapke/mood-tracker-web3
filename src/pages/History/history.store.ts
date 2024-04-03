@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { endOfDay, startOfDay } from 'date-fns';
 import { DateRange } from 'react-day-picker';
+import { DetailItem } from '@/interfaces/mood';
 
 const defaultSelected: DateRange = {
   from: startOfDay(new Date()),
@@ -18,7 +19,7 @@ function startOfDayAndEndOfDay(range: DateRange | undefined): DateRange {
 interface HistoryState {
   defaultSelected: DateRange
   selectedDates: DateRange | undefined
-  details: number[]
+  details: DetailItem[]
   loadingDetails: boolean
   bookedDays: Date[]
   setLoadingDetails: (isLoading: boolean) => void

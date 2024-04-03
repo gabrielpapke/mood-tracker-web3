@@ -1,16 +1,16 @@
 import { Icons } from "@/components/icons";
 import { Label } from "@/components/ui/label";
 import { RadioGroupItem } from "@/components/ui/radio-group";
+import { MoodEnumKey } from "@/interfaces/mood";
 
 interface MoodOptionProps {
-  value: string
-  color: string,
-  svgIcon: keyof typeof Icons
+  value: MoodEnumKey
+  color: string
   description: string
 }
 
-export function MoodOption({ value, color, svgIcon, description }: MoodOptionProps) {
-  const Icon = Icons[svgIcon]
+export function MoodOption({ value, color, description }: MoodOptionProps) {
+  const Icon = Icons[value]
   return (
     <div>
       <RadioGroupItem className="peer sr-only" id={value} value={value} />

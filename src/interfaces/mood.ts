@@ -23,3 +23,14 @@ export interface MoodCardProps {
   color: string
   icon: (props: LucideProps) => React.ReactElement
 }
+
+
+export interface MoodItem {
+  type: MoodType
+  rate: MoodEnumKey
+}
+
+export interface DetailItem {
+  date: Date
+  moods: MoodItem[]
+}

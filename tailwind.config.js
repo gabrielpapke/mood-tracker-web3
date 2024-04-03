@@ -24,6 +24,10 @@ module.exports = {
     'hover:border-emerald-200',
     'peer-data-[state=checked]:border-emerald-400',
     'peer-data-[state=checked]:bg-emerald-400',
+    'bg-red-400',
+    'bg-yellow-400',
+    'bg-lime-400',
+    'bg-emerald-400',
   ],
   prefix: "",
   theme: {

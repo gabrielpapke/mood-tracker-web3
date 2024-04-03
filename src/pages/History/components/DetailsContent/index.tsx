@@ -8,7 +8,7 @@ const DetailsContent = () => {
 
   return (
     <ul>
-      {details.map((item: number) => <ItemDetail key={item} />)}
+      {details.map(({ ...props }, key) => <ItemDetail key={key} {...props} />)}
     </ul>
   )
 }

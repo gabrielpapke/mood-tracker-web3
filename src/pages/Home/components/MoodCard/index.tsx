@@ -57,28 +57,24 @@ export function MoodCard({ title, description, icon, color, mood, type }: MoodCa
                         value="bad"
                         color="red"
                         description="bad"
-                        svgIcon="bad"
                       />
 
                       <MoodOption
                         value="not-bad"
                         color="yellow"
                         description="not bad"
-                        svgIcon="meh"
                       />
 
                       <MoodOption
                         value="good"
                         color="lime"
                         description="good"
-                        svgIcon="smile"
                       />
 
                       <MoodOption
                         value="happy"
                         color="emerald"
                         description="happy"
-                        svgIcon="laugh"
                       />
                     </RadioGroup>
                   )} />
