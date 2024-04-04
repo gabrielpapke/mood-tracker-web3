@@ -1,6 +1,7 @@
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import { Calendar } from '.'
 import { useHistoryStore } from '../../history.store'
+import { act } from 'react-dom/test-utils'
 
 describe('Calendar', () => {
     it('should init calendar with today selected', () => {
@@ -33,5 +34,20 @@ describe('Calendar', () => {
 
         expect(fifteenthDayButton).toHaveClass('has-mood')
         expect(twentiethDayButton).toHaveClass('has-mood')
+    })
+
+    it('should call set past 7 days funcion', async () => {
+        const selectDatesSpy = vi.spyOn(
+            useHistoryStore.getState(),
+            'setSelectedDates',
+        )
+
+        const wrapper = render(<Calendar />)
+
+        await act(async () => {
+            await fireEvent.click(await wrapper.findByText('Past 7 days'))
+        })
+
+        expect(selectDatesSpy).toHaveBeenCalled()
     })
 })
