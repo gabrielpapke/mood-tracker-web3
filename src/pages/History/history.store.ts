@@ -23,6 +23,7 @@ interface HistoryState {
     bookedDays: Date[]
     setLoadingDetails: (isLoading: boolean) => void
     setSelectedDates: (selectedDates: DateRange | undefined) => void
+    setBookedDays: (bookedDays: Date[]) => void
 }
 
 const useHistoryStore = create<HistoryState>()((set) => ({
@@ -37,6 +38,7 @@ const useHistoryStore = create<HistoryState>()((set) => ({
         set(() => ({
             selectedDates: startOfDayAndEndOfDay(range),
         })),
+    setBookedDays: (bookedDays: Date[]) => set(() => ({ bookedDays })),
 }))
 
 export { useHistoryStore }
