@@ -20,7 +20,7 @@ function Details() {
     )
 }
 
-const EmptyDateRange = () => <p>Please selecte a range.</p>
+const EmptyDateRange = () => <p data-testid="empty">Please selecte a range.</p>
 
 const DetailsContainer = () => {
     const loadingDetails = useHistoryStore((state) => state.loadingDetails)
@@ -29,7 +29,7 @@ const DetailsContainer = () => {
 
     if (!loadingDetails) {
         return (
-            <ScrollArea className="h-[300px]">
+            <ScrollArea className="h-[300px]" data-testid="details-area">
                 <DetailsContent />
             </ScrollArea>
         )
