@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 
 export default function SubmittedCard() {
     return (
-        <div className="flex flex-col gap-4 rounded border p-8 text-center">
+        <div
+            data-testid="submitted-card"
+            className="flex flex-col gap-4 rounded border p-8 text-center"
+        >
             <h2 className="text-2xl font-bold">
                 You already submitted your mood today.
             </h2>
