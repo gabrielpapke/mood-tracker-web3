@@ -15,13 +15,21 @@ const card = {
 describe('MoodCard form', () => {
     const user = userEvent.setup()
     const handleSubmitMoodMock = vi.fn()
+    const handleBackMock = vi.fn()
 
     beforeEach(() => {
         handleSubmitMoodMock.mockClear()
+        handleBackMock.mockClear()
     })
 
     it('should render form', () => {
-        render(<MoodCard card={card} onSubmit={handleSubmitMoodMock} />)
+        render(
+            <MoodCard
+                card={card}
+                onSubmit={handleSubmitMoodMock}
+                onBack={handleBackMock}
+            />,
+        )
 
         const form = screen.getByTestId('form-personal')
 
@@ -29,7 +37,13 @@ describe('MoodCard form', () => {
     })
 
     it('should render four options', () => {
-        render(<MoodCard card={card} onSubmit={handleSubmitMoodMock} />)
+        render(
+            <MoodCard
+                card={card}
+                onSubmit={handleSubmitMoodMock}
+                onBack={handleBackMock}
+            />,
+        )
 
         const form = screen.getByTestId('form-personal')
 
@@ -39,7 +53,13 @@ describe('MoodCard form', () => {
     })
 
     it('should not submit before select an option', () => {
-        render(<MoodCard card={card} onSubmit={handleSubmitMoodMock} />)
+        render(
+            <MoodCard
+                card={card}
+                onSubmit={handleSubmitMoodMock}
+                onBack={handleBackMock}
+            />,
+        )
 
         const form = screen.getByTestId('form-personal')
 
@@ -51,7 +71,13 @@ describe('MoodCard form', () => {
     })
 
     it('should submit after select an option', async () => {
-        render(<MoodCard card={card} onSubmit={handleSubmitMoodMock} />)
+        render(
+            <MoodCard
+                card={card}
+                onSubmit={handleSubmitMoodMock}
+                onBack={handleBackMock}
+            />,
+        )
         const form = screen.getByTestId('form-personal')
 
         const optionBad = within(form).getByRole('radio', {

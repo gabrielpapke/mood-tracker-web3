@@ -18,13 +18,17 @@ export const FormSchema = zod.object({
     }),
 })
 
+interface Props {
+    card: MoodCardProps
+    onBack: () => void
+    onSubmit: (type: MoodType, mood: MoodEnumKey) => void
+}
+
 export function MoodCard({
     card: { title, description, icon, color, mood, type },
     onSubmit,
-}: {
-    card: MoodCardProps
-    onSubmit: (type: MoodType, mood: MoodEnumKey) => void
-}) {
+    onBack,
+}: Props) {
     const isSaving = useHomeStore((state) => state.isSaving)
 
     const form = useForm<zod.infer<typeof FormSchema>>({
@@ -105,7 +109,7 @@ export function MoodCard({
                         </div>
                     </CardContent>
 
-                    <Footer />
+                    <Footer onBack={onBack} />
                 </Card>
             </form>
         </Form>

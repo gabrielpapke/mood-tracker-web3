@@ -6,7 +6,7 @@ import { MoodEnumKey, MoodType } from '@/interfaces/mood'
 function CardContainer() {
     const cards = useHomeStore((state) => state.cards)
     const step = useHomeStore((state) => state.step)
-    const { handleSubmitMood } = useHome()
+    const { handleSubmitMood, handleBack } = useHome()
 
     function onSubmit(type: MoodType, mood: MoodEnumKey) {
         handleSubmitMood(type, mood)
@@ -20,6 +20,7 @@ function CardContainer() {
                         <MoodCard
                             key={card.type}
                             card={card}
+                            onBack={handleBack}
                             onSubmit={onSubmit}
                         />
                     ),
