@@ -1,13 +1,12 @@
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import { Calendar } from '.'
 import { useHistoryStore } from '../../history.store'
-import { act } from 'react-dom/test-utils'
 
 describe('Calendar', () => {
     it('should init calendar with today selected', () => {
         const { container } = render(<Calendar />)
 
-        const today = new Date().getDay()
+        const today = new Date().getDate()
 
         const daySelected = container.querySelector(
             '.day-range-end.rdp-day_range_start',
@@ -42,11 +41,9 @@ describe('Calendar', () => {
             'setSelectedDates',
         )
 
-        const wrapper = render(<Calendar />)
+        render(<Calendar />)
 
-        await act(async () => {
-            await fireEvent.click(await wrapper.findByText('Past 7 days'))
-        })
+        fireEvent.click(screen.getByText('Past 7 days'))
 
         expect(selectDatesSpy).toHaveBeenCalled()
     })
