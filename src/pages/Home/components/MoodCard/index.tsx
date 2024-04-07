@@ -2,33 +2,30 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card, CardContent } from '@/components/ui/card'
 import { Form, FormField, FormMessage } from '@/components/ui/form'
-import { MoodCardProps } from '@/interfaces/mood'
+import { MoodCardProps, MoodEnumKey, MoodType } from '@/interfaces/mood'
 import { RadioGroup } from '@/components/ui/radio-group'
 import * as zod from 'zod'
 import { MoodOption } from '../MoodOption'
-import { useHome } from '../../home.hooks'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { useHomeStore } from '../../home.store'
 
 const MOOD_ENUM = ['bad', 'not-bad', 'good', 'happy'] as const
 
-const FormSchema = zod.object({
+export const FormSchema = zod.object({
     mood: zod.enum(MOOD_ENUM, {
         required_error: 'You need to select your mood.',
     }),
 })
 
 export function MoodCard({
-    title,
-    description,
-    icon,
-    color,
-    mood,
-    type,
-}: MoodCardProps) {
+    card: { title, description, icon, color, mood, type },
+    onSubmit,
+}: {
+    card: MoodCardProps
+    onSubmit: (type: MoodType, mood: MoodEnumKey) => void
+}) {
     const isSaving = useHomeStore((state) => state.isSaving)
-    const { handleSubmitMood } = useHome()
 
     const form = useForm<zod.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -37,14 +34,14 @@ export function MoodCard({
         },
     })
 
-    function onSubmit(data: zod.infer<typeof FormSchema>) {
-        handleSubmitMood(type, data.mood)
+    function handleSubmit(data: zod.infer<typeof FormSchema>) {
+        onSubmit(type, data.mood)
     }
 
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(handleSubmit)}
                 data-testid={`form-${type}`}
             >
                 <Card className="w-[350px] md:w-[550px]">
