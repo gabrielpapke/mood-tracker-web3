@@ -1,7 +1,7 @@
 import SubmittedCard from './components/SubmittedCard'
 import { useHomeStore } from './home.store'
 import { CardContainer } from './components/CardContainer'
-import { ConnectWalletCard } from './components/ConnectWalletCard'
+import { ConnectWalletCard } from '@/components/ConnectWalletCard'
 import { useAppStore } from '@/store/app.store'
 
 export function Home() {

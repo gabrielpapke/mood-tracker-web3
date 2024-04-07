@@ -12,6 +12,10 @@ const wrapperRouter = (initialEntries: InitialEntry[]) => {
 }
 
 describe('Home', () => {
+    useAppStore.setState({
+        connected: true,
+    })
+
     it('should render submitted card', () => {
         useHomeStore.setState({
             isSubmitted: true,

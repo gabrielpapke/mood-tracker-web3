@@ -1,11 +1,20 @@
+import { useAppStore } from '@/store/app.store'
 import { Calendar } from './components/Calendar'
 import { Details } from './components/Details'
+import { ConnectWalletCard } from '@/components/ConnectWalletCard'
 
 export function History() {
+    const { connected } = useAppStore()
     return (
         <Container>
-            <Calendar />
-            <Details />
+            {connected ? (
+                <>
+                    <Calendar />
+                    <Details />
+                </>
+            ) : (
+                <ConnectWalletCard />
+            )}
         </Container>
     )
 }
