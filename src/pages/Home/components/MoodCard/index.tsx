@@ -48,7 +48,7 @@ export function MoodCard({
                 onSubmit={form.handleSubmit(handleSubmit)}
                 data-testid={`form-${type}`}
             >
-                <Card className="w-[350px] md:w-[550px]">
+                <Card className="mw-[350px] md:w-[550px]">
                     <Header
                         title={title}
                         description={description}

@@ -3,6 +3,7 @@ import { useHomeStore } from './home.store'
 import { CardContainer } from './components/CardContainer'
 import { ConnectWalletCard } from '@/components/ConnectWalletCard'
 import { useAppStore } from '@/store/app.store'
+import { CenterContainer } from '@/components/CenterContainer'
 
 export function Home() {
     const { connected } = useAppStore()
@@ -14,22 +15,14 @@ const HomeConnected = () => {
     const isSubmitted = useHomeStore((state) => state.isSubmitted)
 
     return (
-        <Container>
+        <CenterContainer>
             {isSubmitted ? <SubmittedCard /> : <CardContainer />}
-        </Container>
+        </CenterContainer>
     )
 }
 
 const HomeDisconnected = () => (
-    <Container>
+    <CenterContainer>
         <ConnectWalletCard />
-    </Container>
-)
-
-const Container = ({ children }: { children: React.ReactNode }) => (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-        <div className="flex h-[70vh] items-center justify-center space-y-2">
-            {children}
-        </div>
-    </div>
+    </CenterContainer>
 )
