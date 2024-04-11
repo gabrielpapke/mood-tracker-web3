@@ -6,7 +6,7 @@ interface AppState {
 }
 
 const useAppStore = create<AppState>()((set) => ({
-    connected: false,
+    connected: true,
     setConnected: (isConnected: boolean) =>
         set(() => ({ connected: isConnected })),
 }))

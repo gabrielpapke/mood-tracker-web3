@@ -1,10 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { buttonVariants } from '../ui/button'
+import { Button, buttonVariants } from '../ui/button'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
-import { ConnectButton } from 'thirdweb/react'
-import { chain, client } from '@/lib/web3'
 
 export default function Navbar() {
     const location = useLocation()
@@ -54,7 +52,7 @@ export default function Navbar() {
                     </nav>
 
                     <div className="ml-auto flex items-center space-x-4">
-                        <ConnectButton client={client} chain={chain} />
+                        <Button size="sm">Connect wallet</Button>
                     </div>
                 </div>
             </div>
