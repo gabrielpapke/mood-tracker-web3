@@ -1,5 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { chain, client } from '@/lib/web3'
+import { ConnectButton } from 'thirdweb/react'
 
 export function ConnectWalletCard() {
     return (
@@ -11,7 +12,7 @@ export function ConnectWalletCard() {
                 Please, connect your wallet.
             </h2>
 
-            <Button>Connect wallet</Button>
+            <ConnectButton client={client} chain={chain} />
         </Card>
     )
 }
