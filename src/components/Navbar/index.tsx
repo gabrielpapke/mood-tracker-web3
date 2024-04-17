@@ -1,11 +1,13 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { Button, buttonVariants } from '../ui/button'
 import { Menu, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, getShortAddress } from '@/lib/utils'
 import { useState } from 'react'
+import { useWallet } from '@/lib/web3'
 
 export default function Navbar() {
     const location = useLocation()
+    const { connectWallet, walletAddress } = useWallet()
     const [isOpen, toggleMenu] = useState(false)
 
     const IconMenu = isOpen ? X : Menu
@@ -52,7 +54,16 @@ export default function Navbar() {
                     </nav>
 
                     <div className="ml-auto flex items-center space-x-4">
-                        <Button size="sm">Connect wallet</Button>
+                        {!walletAddress && (
+                            <Button size="sm" onClick={() => connectWallet()}>
+                                Connect wallet
+                            </Button>
+                        )}
+                        {walletAddress && (
+                            <Button size="sm" onClick={() => connectWallet()}>
+                                {getShortAddress(walletAddress)}
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>

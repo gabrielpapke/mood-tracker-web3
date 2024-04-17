@@ -1,0 +1,279 @@
+[
+    {
+        "type": "function",
+        "name": "createMyMoodToday",
+        "inputs": [
+            {
+                "type": "uint8[]",
+                "name": "moodRates",
+                "internalType": "enum MoodTracker.Rate[]"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "getMyMood",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "myMoodIndex",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "type": "tuple",
+                "name": "",
+                "components": [
+                    {
+                        "type": "uint256",
+                        "name": "id",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "date",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "tuple",
+                        "name": "personal",
+                        "components": [
+                            {
+                                "internalType": "enum MoodTracker.Type",
+                                "name": "moodType",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "enum MoodTracker.Rate",
+                                "name": "moodRate",
+                                "type": "uint8"
+                            }
+                        ],
+                        "internalType": "struct MoodTracker.Mood"
+                    },
+                    {
+                        "type": "tuple",
+                        "name": "professional",
+                        "components": [
+                            {
+                                "internalType": "enum MoodTracker.Type",
+                                "name": "moodType",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "enum MoodTracker.Rate",
+                                "name": "moodRate",
+                                "type": "uint8"
+                            }
+                        ],
+                        "internalType": "struct MoodTracker.Mood"
+                    },
+                    {
+                        "type": "tuple",
+                        "name": "health",
+                        "components": [
+                            {
+                                "internalType": "enum MoodTracker.Type",
+                                "name": "moodType",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "enum MoodTracker.Rate",
+                                "name": "moodRate",
+                                "type": "uint8"
+                            }
+                        ],
+                        "internalType": "struct MoodTracker.Mood"
+                    }
+                ],
+                "internalType": "struct MoodTracker.MyMoodToday"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getMyMoods",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "tuple[]",
+                "name": "",
+                "components": [
+                    {
+                        "type": "uint256",
+                        "name": "id",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "date",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "tuple",
+                        "name": "personal",
+                        "components": [
+                            {
+                                "internalType": "enum MoodTracker.Type",
+                                "name": "moodType",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "enum MoodTracker.Rate",
+                                "name": "moodRate",
+                                "type": "uint8"
+                            }
+                        ],
+                        "internalType": "struct MoodTracker.Mood"
+                    },
+                    {
+                        "type": "tuple",
+                        "name": "professional",
+                        "components": [
+                            {
+                                "internalType": "enum MoodTracker.Type",
+                                "name": "moodType",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "enum MoodTracker.Rate",
+                                "name": "moodRate",
+                                "type": "uint8"
+                            }
+                        ],
+                        "internalType": "struct MoodTracker.Mood"
+                    },
+                    {
+                        "type": "tuple",
+                        "name": "health",
+                        "components": [
+                            {
+                                "internalType": "enum MoodTracker.Type",
+                                "name": "moodType",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "enum MoodTracker.Rate",
+                                "name": "moodRate",
+                                "type": "uint8"
+                            }
+                        ],
+                        "internalType": "struct MoodTracker.Mood"
+                    }
+                ],
+                "internalType": "struct MoodTracker.MyMoodToday[]"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getTotalMoods",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "hasTodayMood",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "myMoods",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "date",
+                "internalType": "uint256"
+            },
+            {
+                "type": "tuple",
+                "name": "personal",
+                "components": [
+                    {
+                        "type": "uint8",
+                        "name": "moodType",
+                        "internalType": "enum MoodTracker.Type"
+                    },
+                    {
+                        "type": "uint8",
+                        "name": "moodRate",
+                        "internalType": "enum MoodTracker.Rate"
+                    }
+                ],
+                "internalType": "struct MoodTracker.Mood"
+            },
+            {
+                "type": "tuple",
+                "name": "professional",
+                "components": [
+                    {
+                        "type": "uint8",
+                        "name": "moodType",
+                        "internalType": "enum MoodTracker.Type"
+                    },
+                    {
+                        "type": "uint8",
+                        "name": "moodRate",
+                        "internalType": "enum MoodTracker.Rate"
+                    }
+                ],
+                "internalType": "struct MoodTracker.Mood"
+            },
+            {
+                "type": "tuple",
+                "name": "health",
+                "components": [
+                    {
+                        "type": "uint8",
+                        "name": "moodType",
+                        "internalType": "enum MoodTracker.Type"
+                    },
+                    {
+                        "type": "uint8",
+                        "name": "moodRate",
+                        "internalType": "enum MoodTracker.Rate"
+                    }
+                ],
+                "internalType": "struct MoodTracker.Mood"
+            }
+        ],
+        "stateMutability": "view"
+    }
+]

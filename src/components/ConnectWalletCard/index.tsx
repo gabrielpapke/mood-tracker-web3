@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useWallet } from '@/lib/web3'
 
 export function ConnectWalletCard() {
+    const { connectWallet } = useWallet()
+
     return (
         <Card
             data-testid="connect-wallet-card"
@@ -11,7 +14,7 @@ export function ConnectWalletCard() {
                 Please, connect your wallet.
             </h2>
 
-            <Button>Connect wallet</Button>
+            <Button onClick={() => connectWallet()}>Connect wallet</Button>
         </Card>
     )
 }

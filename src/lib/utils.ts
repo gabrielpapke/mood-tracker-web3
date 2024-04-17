@@ -28,4 +28,12 @@ const cssCalendar = `
 }
 `
 
-export { cn, cssCalendar }
+const getShortAddress = (address: string): string => {
+    if (!address) return ''
+    return address
+        .substring(0, 5)
+        .concat('...')
+        .concat(address.substring(address.length - 5))
+}
+
+export { cn, cssCalendar, getShortAddress }

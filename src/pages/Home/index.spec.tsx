@@ -16,6 +16,16 @@ describe('Home', () => {
         connected: true,
     })
 
+    vi.mock('@/lib/web3', () => {
+        return {
+            useWallet: () => {
+                return {
+                    connectWallet: () => {},
+                }
+            },
+        }
+    })
+
     it('should render submitted card', () => {
         useHomeStore.setState({
             isSubmitted: true,
